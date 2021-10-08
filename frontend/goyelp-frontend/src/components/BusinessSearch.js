@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, ButtonGroup, Container, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import {Link} from 'react-router-dom';
-import {queries} from "@testing-library/react";
 
 class BusinessSearch extends Component {
 
@@ -10,54 +9,43 @@ class BusinessSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {businesses: [], isLoading: true};
-        this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
         this.setState({isLoading: true});
         const query = new URLSearchParams(this.props.location.search);
         const addr = query.get("addr")
-        console.log("having q param: " + addr)
         fetch('api/businesses?addr=' + addr)
             .then(response => response.json())
-            .then(data => this.setState({businesses: data.businesses, isLoading: false}));
-    }
-
-    async remove(id) {
-        await fetch(`/api/comment/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
-            let updatedComments = [...this.state.comments].filter(i => i.id !== id);
-            this.setState({comments: updatedComments});
-        });
+            .then(data => this.setState({businesses: data, isLoading: false}));
     }
 
     render() {
-        const {comments, isLoading} = this.state;
+        const {businesses, isLoading} = this.state;
 
         if (isLoading) {
             return <p>Loading...</p>;
         }
+        console.log(businesses)
+        const businessList = businesses.map(business => {
+            return <tr key={business.id}>
+                <td style={{whiteSpace: 'nowrap'}}>{business.name}</td>
+                {/*<td>{business.address}</td>*/}
+                <td>{business.rating}</td>
+                <td>{business.review_count}</td>
+                <td>{business.reviewIncCount}</td>
 
-        const commentList = comments.map(comment => {
-            return <tr key={comment.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{comment.user}</td>
-                <td>{comment.comment}</td>
-                <td>{<div>{new Intl.DateTimeFormat('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit'
-                }).format(new Date(comment.commentDate))}</div>
-                }
-                </td>
+                {/*<td>{<div>{new Intl.DateTimeFormat('en-US', {*/}
+                {/*    year: 'numeric',*/}
+                {/*    month: 'long',*/}
+                {/*    day: '2-digit'*/}
+                {/*}).format(new Date(business.commentDate))}</div>*/}
+                {/*}*/}
+                {/*</td>*/}
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/comments/" + comment.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(comment.id)}>Delete</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/reviews?biz=" + business.id}>Show Reviews</Button>
+                        {/*<Button size="sm" color="danger" onClick={() => this.remove(business.id)}>Delete</Button>*/}
                     </ButtonGroup>
                 </td>
             </tr>
@@ -67,21 +55,21 @@ class BusinessSearch extends Component {
             <div>
                 <AppNavbar/>
                 <Container fluid>
-                    <div className="float-right">
-                        <Button color="success" tag={Link} to="/comments/new">Add Comment</Button>
-                    </div>
-                    <h3>My JUG Tour</h3>
+                    <h3>Hot Yelp Biz!</h3>
                     <Table className="mt-4">
                         <thead>
                         <tr>
                             <th width="20%">Name</th>
-                            <th width="20%">Location</th>
-                            <th>Events</th>
+                            {/*<th width="20%">Address</th>*/}
+                            <th width="20%">Rating</th>
+                            <th width="20%">Review Count</th>
+                            <th width="20%">Review Increase Count</th>
+
                             <th width="10%">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {commentList}
+                        {businessList}
                         </tbody>
                     </Table>
                 </Container>

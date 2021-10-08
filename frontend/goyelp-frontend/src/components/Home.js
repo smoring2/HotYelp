@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
 import AppNavbar from './AppNavbar';
-import {Link} from 'react-router-dom';
 import {Button, CardText, Container} from 'reactstrap';
 import Login from "./auth/Login";
 import Logout from "./auth/Logout";
@@ -36,9 +35,7 @@ class Home extends Component {
             <div>
                 <AppNavbar/>
                 <Container fluid>
-                    <Button color="link"><Link to="/comments">See Comments</Link></Button>
-
-                    <CardText>Hottest Food Near You!</CardText>
+                    <CardText>Hottest Yelp Biz Near You!</CardText>
                     <input type="text" placeholder="any place!" value={this.state.value}
                            onChange={this.handleChange}/>
                     <Button onClick={this.handleClick}>Xiu~</Button>

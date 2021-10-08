@@ -19,7 +19,7 @@ function LoginHooks() {
     const onFailure = (res) => {
         console.log('Login failed: res:', res);
         alert(
-            `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
+            `Failed to login. 😢 Please ping this to repo owner github.com/smoring2`
         );
     };
 

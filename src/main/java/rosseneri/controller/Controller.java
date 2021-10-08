@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rosseneri.mode.Review;
-import rosseneri.mode.ReviewRepository;
-import rosseneri.mode.YelpResponse.SearchResponse;
+import rosseneri.model.Business;
+import rosseneri.model.Review;
+import rosseneri.model.ReviewRepository;
+import rosseneri.model.YelpResponse.GetReviewResponse;
+import rosseneri.model.YelpResponse.SearchResponse;
 import rosseneri.service.YelpService;
 
-import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -26,15 +28,14 @@ public class Controller {
         this.yelpService = yelpService;
     }
 
-    @GetMapping("/comments")
-    Collection<Review> comments() {
-        System.out.println("comments");
-        return reviewRepository.findAll();
+    @GetMapping("/businesses")
+    List<Business> findBizByAddress(@RequestParam(name = "addr") String address) {
+        return this.yelpService.searchBizByAddress(address);
     }
 
-    @GetMapping("/businesses")
-    SearchResponse findBusinessByAddress(@RequestParam(name = "addr") String address) {
-        return this.yelpService.searchRestaurantByAddress(address);
+    @GetMapping("/reviews")
+    List<Review> getReviewByBizId(@RequestParam(name = "biz") String bizId) {
+        return this.yelpService.getReviewByBizId(bizId);
     }
 
 }

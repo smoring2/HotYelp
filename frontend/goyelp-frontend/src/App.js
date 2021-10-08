@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import './App.css';
 import Home from './components/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import CommentList from './components/CommentList';
-import CommentEdit from './components/CommentEdit';
 import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import LoginHooks from "./components/auth/LoginHooks";
 import LogoutHooks from "./components/auth/LogoutHooks";
 import BusinessSearch from "./components/BusinessSearch";
+import ReviewList from "./components/ReviewList";
 //
 // function App() {
 //     return (
@@ -36,8 +35,8 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route path='/' exact={true} component={Home}/>
-                        <Route path='/comments' exact={true} component={CommentList}/>
-                        <Route path='/comments/:id' component={CommentEdit}/>
+                        <Route path='/reviews' component={ReviewList}/>
+                        {/*<Route path='/review/:id' component={ReviewLookup}/>*/}
                         <Route path='/businesses' component={BusinessSearch}/>
 
                     </Switch>

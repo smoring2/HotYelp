@@ -1,4 +1,4 @@
-package rosseneri.mode;
+package rosseneri.model;
 
 
 import org.springframework.data.mongodb.repository.MongoRepository;

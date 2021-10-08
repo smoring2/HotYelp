@@ -1,9 +1,6 @@
-package rosseneri.mode.YelpResponse;
+package rosseneri.model.YelpResponse;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import rosseneri.mode.Business;
-import rosseneri.mode.Review;
+import rosseneri.model.Business;
 
 import java.util.List;
 

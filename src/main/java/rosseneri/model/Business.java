@@ -1,11 +1,12 @@
-package rosseneri.mode;
+package rosseneri.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.List;
 
-public class Business {
+public class Business implements Comparable {
 
     @Id
     public String id;
@@ -16,11 +17,21 @@ public class Business {
     public String name;
 
     public double rating;
+
+    @JsonProperty("review_count")
     public int reviewCount;
 
+    public int reviewIncCount;
+
+    public int getReviewIncCount() {
+        return reviewIncCount;
+    }
+
+    public void setReviewIncCount(int reviewIncCount) {
+        this.reviewIncCount = reviewIncCount;
+    }
 
     public String address;
-    public List<Review> reviews;
 
     public Business() {
     }
@@ -73,11 +84,17 @@ public class Business {
         this.address = address;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    @Override
+    public int compareTo(Object anotherBizObj) {
+        Business anotherBiz = (Business) anotherBizObj;
+        if (this.getReviewIncCount() == anotherBiz.getReviewIncCount()) {
+            if (this.getReviewCount() == anotherBiz.getReviewCount()) {
+                return this.getRating() - anotherBiz.getRating() < 0 ? -1 : 1;
+            } else {
+                return anotherBiz.getReviewCount() - this.getReviewCount();
+            }
+        } else {
+            return anotherBiz.getReviewIncCount() - this.getReviewIncCount();
+        }
     }
 }
