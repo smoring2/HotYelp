@@ -1,0 +1,30 @@
+{
+  "project_name": "GoYelp",
+  "source_boot_version": "2.5.0",
+  "target_boot_version": "4.0.0",
+  "source_java_version": "1.8",
+  "target_java_version": "17",
+  "build_tool": "maven",
+  "complexity_tier": "green-small",
+  "modules": ["single-module"],
+  "incompatible_deps": [],
+  "pre_existing_failures": [],
+  "td_pipeline": {
+    "TD-0": "completed",
+    "TD-1": "pending",
+    "TD-2": "skip",
+    "TD-3": "skip",
+    "TD-4": "pending"
+  },
+  "td2_skip_reason": "No Spring Security, no @MockBean, no test sources",
+  "td3_skip_reason": "No observability/micrometer/opentelemetry dependencies",
+  "assessment": {
+    "has_security": false,
+    "has_jackson_customization": false,
+    "has_tests": false,
+    "has_javax_imports": false,
+    "has_observability": false,
+    "loc_estimate": "<500",
+    "module_count": 1
+  }
+}
