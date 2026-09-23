@@ -1,0 +1,43 @@
+migration_status: COMPLETE
+spring_boot_version:
+  from: "2.5.0"
+  to: "4.1.0"
+java_version:
+  from: "1.8"
+  to: "21"
+build_tool: maven
+build_command: "JAVA_HOME=/usr/lib/jvm/java-25-amazon-corretto.x86_64 mvn clean verify"
+build_status: SUCCESS
+build_log: "target/build.log"
+tds_applied:
+  - name: springboot4-core-migration
+    status: COMPLETE
+  - name: springboot4-verification
+    status: COMPLETE
+tds_skipped:
+  - springboot4-security-testing
+  - springboot4-observability
+  - springboot4-spring-ai
+  - springboot4-spring-batch
+  - springboot4-spring-kafka
+  - springboot4-spring-amqp
+  - springboot4-spring-cloud
+  - springboot4-native-aot
+  - springboot4-jersey
+  - springboot4-spring-retry
+  - springboot4-jspecify
+  - springboot4-embedded-servers
+  - springboot4-springdoc-sba
+  - springboot4-thirdparty-compat
+  - springboot4-grpc
+changes:
+  - file: pom.xml
+    description: "Upgraded spring-boot-starter-parent 2.5.0 -> 4.1.0, java.version 1.8 -> 21, spring-boot-starter-web -> spring-boot-starter-webmvc, added spring-boot-starter-restclient, added maven-compiler-plugin with fork=true for JDK 25"
+  - file: src/main/java/rosseneri/configuration/Configuration.java
+    description: "Relocated RestTemplateBuilder import from org.springframework.boot.web.client to org.springframework.boot.restclient"
+unit_tests:
+  total: 0
+  passed: 0
+  failed: 0
+  skipped: 0
+manual_review_needed: []
