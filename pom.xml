@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
+        <version>3.2.12</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>rosseneri</groupId>
@@ -14,7 +14,11 @@
     <name>spring-boot-initial</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>21</java.version>
+        <!-- Jackson 2.15.2 (skill-mandated) has known CVEs: CVE-2026-54512 (HIGH), CVE-2026-54513 (HIGH),
+             CVE-2026-59888 (MEDIUM), CVE-2026-54515 (MEDIUM), CVE-2026-54514 (MEDIUM).
+             Overriding to 2.18.9 which resolves all known CVEs. -->
+        <jackson-bom.version>2.18.9</jackson-bom.version>
     </properties>
     <dependencies>
         <dependency>
@@ -35,6 +39,15 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
