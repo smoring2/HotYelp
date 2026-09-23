@@ -39,6 +39,9 @@
 
     <build>
         <plugins>
+            <!-- maven-compiler-plugin: skill mandates 3.0.5 for Maven < 3.9.0, but 3.0.5 does not
+                 support Java 21 (release flag and target 21). Using 3.11.0 which is the minimum
+                 version with reliable Java 21 support and is compatible with Maven 3.8.4. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
