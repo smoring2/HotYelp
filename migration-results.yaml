@@ -1,0 +1,23 @@
+repo: "HotYelp-764c0cf1963c8461"
+spring_boot_source: "2.5.0"
+spring_boot_target: "4.1.0"
+build_tool: maven
+
+results:
+  compilation: PASS
+  test_integrity: PASS
+  unit_tests:
+    total: 0
+    passed: 0
+    failed: 0
+    skipped: 0
+  deprecated_patterns:
+    jackson2_imports: 0
+    mockbean_annotations: 0
+    security_legacy_dsl: 0
+    old_property_keys: 0
+    old_starter_names: 0
+
+manual_review_needed:
+  - "No application.properties or application.yml found - runtime configuration (e.g. MongoDB connection, Yelp API token) must be provided externally"
+  - "No test files exist in the project - consider adding tests"
