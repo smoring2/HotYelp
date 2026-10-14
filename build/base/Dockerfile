@@ -3,11 +3,11 @@ MAINTAINER <Xi Shen> smoring1995@gmail.com
 
 RUN yarn global add serve
 
-RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - \
+RUN wget -qO - https://apt.corretto.aws/corretto.key | apt-key add - \
     && apt-get update \
     && apt-get install -y software-properties-common \
-    && add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ \
+    && add-apt-repository --yes 'deb https://apt.corretto.aws stable main' \
     && apt-get update \
-    && apt-get install -y adoptopenjdk-8-hotspot
+    && apt-get install -y java-1.8.0-amazon-corretto-jdk
 
 
