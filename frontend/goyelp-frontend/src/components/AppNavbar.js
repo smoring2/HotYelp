@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
 import Login from "./auth/Login";
 import Logout from "./auth/Logout";
 
@@ -22,7 +22,7 @@ export default class AppNavbar extends Component {
             <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
             <NavbarToggler onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
+                <Nav className="ms-auto" navbar>
                     <NavItem>
                         <NavLink>
                             <Login/>

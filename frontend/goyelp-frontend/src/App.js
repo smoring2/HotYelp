@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Home from './components/Home';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Login from "./components/auth/Login";
-import Logout from "./components/auth/Logout";
-import LoginHooks from "./components/auth/LoginHooks";
-import LogoutHooks from "./components/auth/LogoutHooks";
+import {BrowserRouter as Router, Route, Routes} from 'react-router';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import BusinessSearch from "./components/BusinessSearch";
 import ReviewList from "./components/ReviewList";
 //
@@ -29,18 +26,23 @@ import ReviewList from "./components/ReviewList";
 //     );
 // }
 
+const clientId =
+    '527452840708-cjj4h0je154vs0mtqgboqemtqimaern8.apps.googleusercontent.com';
+
 class App extends Component {
     render() {
         return (<div className="App">
-                <Router>
-                    <Switch>
-                        <Route path='/' exact={true} component={Home}/>
-                        <Route path='/reviews' component={ReviewList}/>
-                        {/*<Route path='/review/:id' component={ReviewLookup}/>*/}
-                        <Route path='/businesses' component={BusinessSearch}/>
+                <GoogleOAuthProvider clientId={clientId}>
+                    <Router>
+                        <Routes>
+                            <Route path='/' element={<Home/>}/>
+                            <Route path='/reviews' element={<ReviewList/>}/>
+                            {/*<Route path='/review/:id' component={ReviewLookup}/>*/}
+                            <Route path='/businesses' element={<BusinessSearch/>}/>
 
-                    </Switch>
-                </Router>
+                        </Routes>
+                    </Router>
+                </GoogleOAuthProvider>
             </div>
         )
 

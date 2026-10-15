@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, ButtonGroup, Container, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
+import {withRouter} from './utils/withRouter';
 
 class BusinessSearch extends Component {
 
@@ -78,4 +79,4 @@ class BusinessSearch extends Component {
     }
 }
 
-export default BusinessSearch;
+export default withRouter(BusinessSearch);
