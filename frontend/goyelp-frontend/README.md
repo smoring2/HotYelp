@@ -10,6 +10,24 @@ Node.js 22 LTS or newer is required. Verify the installed version with:
 node --version
 ```
 
+## Security Audit Status
+
+`npm audit` currently reports 67 advisories (3 low, 7 moderate, 57 high). Direct
+dependencies were upgraded to their latest releases and `overrides` are pinned in
+`package.json` for `nth-check`, `postcss`, `postcss-selector-parser`,
+`serialize-javascript` and `node-forge`, which cleared the fixable findings.
+
+The remaining advisories (e.g. `webpack-dev-server`, `webpack-dev-middleware`,
+`jest` 27 toolchain, `svgo`, `braces`, `uuid`) are all transitive dependencies of
+`react-scripts@5.0.1`, the latest published release of Create React App. They
+affect build/development tooling only and are not part of the production bundle
+shipped to browsers. `npm audit fix --force` resolves them only by installing
+`react-scripts@0.0.0`, a breaking change that would destroy the build.
+
+They are therefore deferred: clearing them requires either an upstream
+`react-scripts` release with updated dependencies or migrating the app off
+Create React App (e.g. to Vite), both out of scope for the Node.js runtime upgrade.
+
 ## Available Scripts
 
 In the project directory, you can run:
