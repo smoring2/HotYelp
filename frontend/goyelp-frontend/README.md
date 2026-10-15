@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisites
+
+Node.js 22 LTS or newer is required. Verify the installed version with:
+
+```
+node --version
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
