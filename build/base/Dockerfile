@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:22
 MAINTAINER <Xi Shen> smoring1995@gmail.com
 
 RUN yarn global add serve
