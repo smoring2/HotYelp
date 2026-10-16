@@ -28,6 +28,14 @@ They are therefore deferred: clearing them requires either an upstream
 `react-scripts` release with updated dependencies or migrating the app off
 Create React App (e.g. to Vite), both out of scope for the Node.js runtime upgrade.
 
+## Pinned Dependency Versions
+
+`eslint-plugin-jest` is intentionally capped at `^27`. Versions `>=28` declare a
+peer dependency on `@typescript-eslint/eslint-plugin@^8`, which conflicts with the
+ESLint 8 / `@typescript-eslint` 5 toolchain bundled by `react-scripts@5.0.1`
+(`npm install eslint-plugin-jest@^29` fails with ERESOLVE). It can be upgraded once
+the project moves off Create React App.
+
 ## Available Scripts
 
 In the project directory, you can run:
