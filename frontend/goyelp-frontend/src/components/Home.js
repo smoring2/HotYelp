@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import AppNavbar from './AppNavbar';
 import {Button, CardText, Container} from 'reactstrap';
-import Login from "./auth/Login";
-import Logout from "./auth/Logout";
+import {withRouter} from './utils/withRouter';
 
 
 class Home extends Component {
@@ -26,7 +25,7 @@ class Home extends Component {
         const encodedAddr = encodeURIComponent(oriAddr)
         console.log("oriAddr: " + oriAddr)
         console.log("encodedAddr: " + encodedAddr)
-        this.props.history.push("/businesses?addr=" + encodedAddr);
+        this.props.navigate("/businesses?addr=" + encodedAddr);
     }
 
 
@@ -46,4 +45,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);

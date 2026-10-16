@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router';
+import { withRouter } from './utils/withRouter';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
@@ -19,8 +20,8 @@ class ZipCodeSubmit extends Component {
     }
 
     async componentDidMount() {
-        if (this.props.match.params.id !== 'new') {
-            const comment = await (await fetch(`/api/comment/${this.props.match.params.id}`)).json();
+        if (this.props.params.id !== 'new') {
+            const comment = await (await fetch(`/api/comment/${this.props.params.id}`)).json();
             this.setState({item: comment});
         }
     }
@@ -46,7 +47,7 @@ class ZipCodeSubmit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/comments');
+        this.props.navigate('/comments');
     }
 
     render() {
@@ -100,4 +101,4 @@ class ZipCodeSubmit extends Component {
     }
 }
 
-export default withRouter(CommentEdit);
+export default withRouter(ZipCodeSubmit);

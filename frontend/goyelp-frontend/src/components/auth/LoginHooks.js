@@ -1,35 +1,30 @@
 import React from 'react';
-import { useGoogleLogin } from 'react-google-login';
+import { useGoogleLogin } from '@react-oauth/google';
 
 // refresh token
 import { refreshTokenSetup } from './utils/refreshToken';
 
-const clientId =
-    '527452840708-cjj4h0je154vs0mtqgboqemtqimaern8.apps.googleusercontent.com';
-
 function LoginHooks() {
     const onSuccess = (res) => {
-        console.log('Login Success: currentUser:', res.profileObj);
+        console.log('Login Success: tokenResponse:', res);
         alert(
-            `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
+            `Logged in successfully 😍. \n See console for full token response.`
         );
         refreshTokenSetup(res);
     };
 
-    const onFailure = (res) => {
+    const onError = (res) => {
         console.log('Login failed: res:', res);
         alert(
             `Failed to login. 😢 Please ping this to repo owner github.com/smoring2`
         );
     };
 
-    const { signIn } = useGoogleLogin({
+    const signIn = useGoogleLogin({
         onSuccess,
-        onFailure,
-        clientId,
-        isSignedIn: true,
-        accessType: 'offline',
-        // responseType: 'code',
+        onError,
+        flow: 'implicit',
+        // flow: 'auth-code',
         // prompt: 'consent',
     });
 

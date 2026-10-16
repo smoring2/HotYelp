@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Button, ButtonGroup, Container, Table} from 'reactstrap';
+import {Container, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import {Link} from 'react-router-dom';
+import {withRouter} from './utils/withRouter';
 
 class ReviewList extends Component {
 
@@ -70,4 +70,4 @@ class ReviewList extends Component {
     }
 }
 
-export default ReviewList;
+export default withRouter(ReviewList);

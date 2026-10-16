@@ -1,9 +1,6 @@
 
 import React from 'react';
-import { useGoogleLogout } from 'react-google-login';
-
-const clientId =
-    '527452840708-cjj4h0je154vs0mtqgboqemtqimaern8.apps.googleusercontent.com';
+import { googleLogout } from '@react-oauth/google';
 
 function LogoutHooks() {
     const onLogoutSuccess = (res) => {
@@ -11,15 +8,10 @@ function LogoutHooks() {
         alert('Logged out Successfully ✌');
     };
 
-    const onFailure = () => {
-        console.log('Handle failure cases');
+    const signOut = () => {
+        googleLogout();
+        onLogoutSuccess();
     };
-
-    const { signOut } = useGoogleLogout({
-        clientId,
-        onLogoutSuccess,
-        onFailure,
-    });
 
     return (
         <button onClick={signOut} className="button">
