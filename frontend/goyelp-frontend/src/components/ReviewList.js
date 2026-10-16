@@ -15,8 +15,25 @@ class ReviewList extends Component {
 
         const query = new URLSearchParams(this.props.location.search);
         const bizId = query.get("biz")
-        fetch('api/reviews?biz=' + bizId)
-            .then(response => response.json())
+        const authToken = localStorage.getItem('authToken');
+        fetch('api/reviews?biz=' + bizId, {
+            headers: {
+                'Authorization': 'Bearer ' + authToken
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    alert('Please sign in to view reviews.');
+                    this.setState({isLoading: false});
+                    return [];
+                }
+                if (response.status === 429) {
+                    alert('Rate limit exceeded. Please try again later.');
+                    this.setState({isLoading: false});
+                    return [];
+                }
+                return response.json();
+            })
             .then(data => this.setState({reviews: data, isLoading: false}));
     }
 

@@ -15,8 +15,25 @@ class BusinessSearch extends Component {
         this.setState({isLoading: true});
         const query = new URLSearchParams(this.props.location.search);
         const addr = query.get("addr")
-        fetch('api/businesses?addr=' + addr)
-            .then(response => response.json())
+        const authToken = localStorage.getItem('authToken');
+        fetch('api/businesses?addr=' + addr, {
+            headers: {
+                'Authorization': 'Bearer ' + authToken
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    alert('Please sign in to search businesses.');
+                    this.setState({isLoading: false});
+                    return [];
+                }
+                if (response.status === 429) {
+                    alert('Rate limit exceeded. Please try again later.');
+                    this.setState({isLoading: false});
+                    return [];
+                }
+                return response.json();
+            })
             .then(data => this.setState({businesses: data, isLoading: false}));
     }
 
@@ -26,7 +43,6 @@ class BusinessSearch extends Component {
         if (isLoading) {
             return <p>Loading...</p>;
         }
-        console.log(businesses)
         const businessList = businesses.map(business => {
             return <tr key={business.id}>
                 <td style={{whiteSpace: 'nowrap'}}>{business.name}</td>
