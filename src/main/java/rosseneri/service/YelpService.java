@@ -1,5 +1,7 @@
 package rosseneri.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rosseneri.model.Business;
@@ -14,6 +16,7 @@ import java.util.*;
 @Service
 public class YelpService {
 
+    private static final Logger log = LoggerFactory.getLogger(YelpService.class);
 
     private RestTemplate restTemplate;
 
@@ -29,6 +32,7 @@ public class YelpService {
     }
 
     public List<Business> searchBizByAddress(String address) {
+        log.info("Calling Yelp Business Search API for address={}", address);
         SearchResponse searchResponse = this.restTemplate.getForObject("https://api.yelp.com/v3/businesses/search?location=" + address, SearchResponse.class);
         if (searchResponse != null) {
 
@@ -38,21 +42,26 @@ public class YelpService {
             }
 
             this.bizRepository.saveAll(searchResponse.businesses);
+            log.info("Persisted {} businesses from Yelp search for address={}", searchResponse.businesses.size(), address);
             Collections.sort(searchResponse.getBusinesses());
             return searchResponse.getBusinesses();
         }
 
+        log.warn("Yelp Business Search API returned null for address={}", address);
         return new ArrayList<>();
     }
 
     public List<Review> getReviewByBizId(String bizId) {
+        log.info("Calling Yelp Reviews API for bizId={}", bizId);
         GetReviewResponse getReviewResponse = this.restTemplate.getForObject("https://api.yelp.com/v3/businesses/" + bizId + "/reviews", GetReviewResponse.class);
 
         if (getReviewResponse != null) {
             this.reviewRepository.saveAll(getReviewResponse.reviews);
+            log.info("Persisted {} reviews from Yelp for bizId={}", getReviewResponse.reviews.size(), bizId);
             return getReviewResponse.reviews;
         }
 
+        log.warn("Yelp Reviews API returned null for bizId={}", bizId);
         return new ArrayList<>();
     }
 }
