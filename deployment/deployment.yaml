@@ -108,6 +108,25 @@ spec:
         - image: us-docker.pkg.dev/strong-land-326003/docker-registry/hotyelp@sha256:38326cb875fabe3f372bee62e88cb141f36e2921daac99f3e64e57bfcad4d496
           imagePullPolicy: IfNotPresent
           name: hotyelp-sha256-1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             limits:
               cpu: 500m
